@@ -33,4 +33,13 @@ public class UserController {
     public List<Post> getUserPostsDetails(@PathVariable int userId) throws Exception {
         return userServiceImpl.getUserPostsDetails(userId);
     }
+    @GetMapping("/otherUsersPosts/{currentUserId}")
+    public List<Post> getOtherUsersPosts(@PathVariable int currentUserId, @RequestParam(required = false) String sort) throws Exception {
+        return userServiceImpl.getOtherUsersPosts(currentUserId,sort);
+    }
+
+    @GetMapping("/searchPosts")
+    public List<Post> searchPosts(@RequestBody(required = false)  Post post) throws Exception {
+        return userServiceImpl.searchPosts(post);
+    }
 }

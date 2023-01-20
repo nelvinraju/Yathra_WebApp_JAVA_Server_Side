@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Component
 public class UserDAO {
@@ -66,5 +68,39 @@ public class UserDAO {
             log.error("Error in reading user posts from database.");
             throw  new Exception("Error in reading user posts from database.");
         }
+    }
+
+    public List<Post> gettingOtherUsersPostsDetails(int currentUserId) throws Exception {
+        try{
+            List<Posts> posts = postsRepository.findAll();
+            List<Post> postList = new ArrayList<>();
+            for(Posts eachPost:posts){
+                Post post = new Post();
+                BeanUtils.copyProperties(eachPost,post);
+                postList.add(post);
+            }
+
+            List<Post> postfilterdList = postList.stream()
+                    .filter(post -> post.getUserId()!=currentUserId).collect(Collectors.toList());
+
+            return postfilterdList;
+
+        }catch (Exception e){
+            log.error("Error in reading user posts from database.",e.getMessage());
+            throw new Exception("Error in reading user posts from database.");
+        }
+    }
+
+    public List<Post> searchingPosts(Post post) {
+        Posts posts = new Posts();
+        List<Post> resultList = new ArrayList<>();
+        BeanUtils.copyProperties(post,posts);
+        List<Posts> listPosts = postsRepository.findByLike(post.getPostName(),post.getPostHeading());
+        for(Posts eachPosts : listPosts){
+            Post resultPost= new Post();
+            BeanUtils.copyProperties(eachPosts,resultPost);
+            resultList.add(resultPost);
+        }
+        return resultList;
     }
 }

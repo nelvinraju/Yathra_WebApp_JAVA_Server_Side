@@ -6,7 +6,10 @@ import com.nrk.yathra.server.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserServiceImpl {
@@ -45,5 +48,31 @@ public class UserServiceImpl {
     private List<Post> gettingUserPostsDetails(int userId) throws Exception {
         return userDAO.gettingUserPostsDetails(userId);
 
+    }
+
+    public List<Post> getOtherUsersPosts(int currentUserId, String sort) throws Exception {
+        return gettingOtherUsersPostsDetails(currentUserId,sort);
+    }
+
+    private List<Post> gettingOtherUsersPostsDetails(int currentUserId, String sort) throws Exception {
+        List<Post>  unsortedList = userDAO.gettingOtherUsersPostsDetails(currentUserId);
+        List<Post>  resultList = new ArrayList<>();
+        if(sort.equalsIgnoreCase("A")){
+            resultList = unsortedList.stream().sorted(Comparator.comparing(Post::getCreatedDate)).collect(Collectors.toList());
+        }else if(sort.equalsIgnoreCase("D")){
+            resultList = unsortedList.stream().sorted(Comparator.comparing(Post::getCreatedDate).reversed()).collect(Collectors.toList());
+        }else{
+            resultList = unsortedList.stream().sorted(Comparator.comparing(Post::getCreatedDate)).collect(Collectors.toList());
+        }
+
+        return resultList;
+    }
+
+    public List<Post> searchPosts(Post post) {
+        return searchingPosts(post);
+    }
+
+    private List<Post> searchingPosts(Post post) {
+        return userDAO.searchingPosts(post);
     }
 }
