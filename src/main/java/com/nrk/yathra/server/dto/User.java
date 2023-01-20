@@ -14,13 +14,11 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @SuperBuilder
 @NoArgsConstructor
 @JsonInclude(NON_NULL)
-public class Post extends PostProperties {
+public class User {
     @JsonInclude(NON_DEFAULT)
-    private  int  postId;
-    private String postName;
-    private  String postHeading;
-    private String  postDescription;
-    private String postImage;
-
+    private int userId;
+    private String userName;
+    private String userEmail;
+    private  String userPassword;
 
 }

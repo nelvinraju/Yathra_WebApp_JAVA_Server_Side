@@ -7,33 +7,29 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name="yathra_posts")
-public class Posts {
+@Table(name="yathra_users")
+public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
-    private  int  postId;
-    private String postName;
-    private  String postHeading;
-    private String  postDescription;
-    private String postImage;
     @Column(name = "user_id")
     private  int  userId;
+    private String userName;
+    private  String userEmail;
+    private  String userRole;
+    private  String userPassword;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
+    private Set<Posts> posts;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date LastModifiedDate;
-    private Integer likes;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id",referencedColumnName = "post_id")
-    private List<PostComments> postComments;
-
-
 }

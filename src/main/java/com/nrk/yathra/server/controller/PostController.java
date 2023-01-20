@@ -31,6 +31,10 @@ public class PostController {
         return postServiceImpl.readAllPosts();
     }
 
+    @GetMapping("/readSpecificPost/{postId}")
+    public Post readSpecificPost(@PathVariable int postId) throws Exception {
+        return postServiceImpl.readSpecificPost(postId);
+    }
     @PostMapping("/addNewComment/{postId}/{comment}")
     public String addNewComment(@PathVariable int postId ,@PathVariable String comment) throws Exception {
         return postServiceImpl.addNewComment(postId,comment);

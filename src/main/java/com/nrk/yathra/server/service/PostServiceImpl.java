@@ -52,4 +52,12 @@ public class PostServiceImpl {
     private String deletingExsistingPost(int postId) throws Exception {
         return  postDAO.deletingExsistingPost(postId);
     }
+
+    public Post readSpecificPost(int postId) throws Exception {
+        return  readingSpecificPost(postId);
+    }
+
+    private Post readingSpecificPost(int postId) throws Exception {
+        return  postDAO.readingSpecificPost(postId);
+    }
 }

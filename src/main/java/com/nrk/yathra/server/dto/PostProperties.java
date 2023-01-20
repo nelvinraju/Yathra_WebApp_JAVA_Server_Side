@@ -1,6 +1,5 @@
 package com.nrk.yathra.server.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,4 +16,5 @@ public class PostProperties {
     private Date LastModifiedDate;
     private Integer likes;
     private List<String> comments;
+    private int userId;
 }

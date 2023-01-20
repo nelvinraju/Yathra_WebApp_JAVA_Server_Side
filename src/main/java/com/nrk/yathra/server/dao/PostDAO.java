@@ -51,7 +51,8 @@ public class PostDAO {
     }
 
     public String addingNewComment(int postId,String comment) throws Exception {
-         if(postsRepository.existsById(postId)){
+        Optional<Posts> posts = postsRepository.findById(postId);
+         if(!posts.isEmpty()){
              PostComments postComments = new PostComments();
              postComments.setPostId(postId);
              postComments.setComments(comment);
@@ -79,6 +80,18 @@ public class PostDAO {
             return  "Post deleted successfully";
         }else{
             throw new Exception("Failed to delete the post.");
+        }
+    }
+
+    public Post readingSpecificPost(int postId) throws Exception {
+        try{
+           Optional<Posts> posts = postsRepository.findById(postId) ;
+                Post post = new Post();
+                BeanUtils.copyProperties(posts.get(),post);
+                return post;
+        }catch (Exception e){
+            log.error("Error in reading all posts from database.");
+            throw  new Exception("Error in reading the post from database.");
         }
     }
 }
