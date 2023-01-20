@@ -81,7 +81,7 @@ public class UserDAO {
             }
 
             List<Post> postfilterdList = postList.stream()
-                    .filter(post -> post.getUserId()!=currentUserId).collect(Collectors.toList());
+                    .filter(post -> post.getUserId()!=currentUserId).filter(post -> post.getApprovedPost()).collect(Collectors.toList());
 
             return postfilterdList;
 

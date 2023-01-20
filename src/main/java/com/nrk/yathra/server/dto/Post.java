@@ -21,6 +21,6 @@ public class Post extends PostProperties {
     private  String postHeading;
     private String  postDescription;
     private String postImage;
-
+    private Boolean approvedPost;
 
 }

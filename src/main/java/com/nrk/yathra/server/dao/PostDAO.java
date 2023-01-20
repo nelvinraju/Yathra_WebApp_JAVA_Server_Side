@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -42,7 +43,6 @@ public class PostDAO {
                 BeanUtils.copyProperties(eachPost,post);
                 postList.add(post);
             }
-
            return postList;
         }catch (Exception e){
             log.error("Error in reading all posts from database.");

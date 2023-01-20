@@ -1,8 +1,10 @@
 package com.nrk.yathra.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -34,6 +36,8 @@ public class Posts {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id",referencedColumnName = "post_id")
     private List<PostComments> postComments;
+    @ColumnDefault("false")
+    private Boolean approvedPost;
 
 
 }
